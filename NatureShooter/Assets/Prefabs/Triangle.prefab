@@ -105,14 +105,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba52d0429fbdde4e9ffd22896e50d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  visibleRange: 10
-  protectedRange: 2
-  avoidFactor: 0.05
-  matchingFactor: 0.05
-  centeringFactor: 0.05
+  visibleRange: 5
+  protectedRange: 1
+  avoidFactor: 0.8
+  matchingFactor: 0.5
+  centeringFactor: 0.005
   turnFactor: 0.05
-  closeRange: {fileID: 3222114426261021749}
-  farRange: {fileID: 0}
+  range: {fileID: 0}
+  velocity: {x: 1, y: 1}
 --- !u!58 &3222114426261021749
 CircleCollider2D:
   m_ObjectHideFlags: 0

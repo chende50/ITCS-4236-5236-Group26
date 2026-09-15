@@ -13,7 +13,7 @@ public class BoidBird : MonoBehaviour
     [SerializeField] public float turnFactor = .05f; // Avoid obstacles
     [SerializeField] public CircleCollider2D range;
     public Vector2 velocity = Vector2.zero;
-    private int speed = 2;
+    private int speed = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -54,7 +54,7 @@ public class BoidBird : MonoBehaviour
                 neighborBirds++;
             }
         }
-        velocity += close.normalized * avoidFactor;
+        velocity += close * avoidFactor;
 
         if (neighborBirds > 0)
         {
@@ -70,6 +70,7 @@ public class BoidBird : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, 0));
 
         transform.position += displacement;
+        Debug.DrawLine(transform.position, transform.position + displacement * 50);
     }
 
     private float Pythagorean(Vector2 position, Vector2 otherPosition)
