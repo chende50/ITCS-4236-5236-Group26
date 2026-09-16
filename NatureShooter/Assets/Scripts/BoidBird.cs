@@ -11,9 +11,11 @@ public class BoidBird : MonoBehaviour
     [SerializeField] public float matchingFactor = .05f; // Alignment
     [SerializeField] public float centeringFactor = .05f; // Cohesion
     [SerializeField] public float turnFactor = .05f; // Avoid obstacles
-    [SerializeField] public CircleCollider2D range;
+    [SerializeField] public float maxSpeed = 6;
+    [SerializeField] public float minSpeed = 3;
+    public float speed;
     public Vector2 velocity = Vector2.zero;
-    private int speed = 10;
+    public CircleCollider2D range;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,10 +40,12 @@ public class BoidBird : MonoBehaviour
 
         // Get an array of all birds within the range
         List<Collider2D> closeBirds = new List<Collider2D>();
-        range.Overlap(closeBirds);
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = true;
+        range.Overlap(filter, closeBirds);
+        Vector2 thisPosition = new Vector2(transform.position.x, transform.position.y);
         for (int i = 0; i < closeBirds.Count; i++)
         {
-            Vector2 thisPosition = new Vector2(transform.position.x, transform.position.y);
             Vector2 otherPosition = new Vector2(closeBirds[i].transform.position.x, closeBirds[i].transform.position.y);
             if (Pythagorean(thisPosition, otherPosition) < protectedRange)
             {
@@ -54,7 +58,6 @@ public class BoidBird : MonoBehaviour
                 neighborBirds++;
             }
         }
-        velocity += close * avoidFactor;
 
         if (neighborBirds > 0)
         {
@@ -64,10 +67,35 @@ public class BoidBird : MonoBehaviour
 
         velocity += (avgVelocity - velocity).normalized * matchingFactor;
         velocity += (avgPosition - new Vector2(transform.position.x, transform.position.y)).normalized * centeringFactor;
+        velocity += close.normalized * avoidFactor;
 
-        Vector3 displacement = new Vector3(velocity.x, velocity.y, 0) * Time.deltaTime * speed;
+        Rect boundary = Camera.main.pixelRect;
+        if (!boundary.Contains(thisPosition))
+        {
+            if(thisPosition.x > boundary.xMax)
+            {
+                velocity.x -= turnFactor;
+            }
+            if (thisPosition.x < boundary.xMin)
+            {
+                velocity.x += turnFactor;
+            }
+            if (thisPosition.y > boundary.yMax)
+            {
+                velocity.y -= turnFactor;
+            }
+            if (thisPosition.y < boundary.yMin)
+            {
+                velocity.y += turnFactor;
+            }
+        }
 
-        //transform.rotation = Quaternion.LookRotation(new Vector3(velocity.x, 0, 0));
+        speed = Pythagorean(thisPosition, velocity);
+        speed = Mathf.Clamp(speed, minSpeed, maxSpeed);
+        Vector3 displacement = velocity * speed * (1 + Time.deltaTime);
+
+        float dotProduct = Vector2.Dot(new Vector2(transform.position.x, transform.position.y), displacement);
+        transform.Rotate(new Vector3(0,0,dotProduct));
 
         transform.position += displacement;
         Debug.DrawLine(transform.position, transform.position + displacement * 50);
