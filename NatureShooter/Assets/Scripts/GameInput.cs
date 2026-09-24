@@ -5,6 +5,7 @@ public class GameInput : MonoBehaviour
 {
 
     private InputActions inputActions;
+    [SerializeField] Camera mainCam;
 
     private void Awake() {
         inputActions = new InputActions();
@@ -17,13 +18,11 @@ public class GameInput : MonoBehaviour
         return inputVector;
     }
 
-    public Vector2 GetMouseWorldPosition()
+    public Vector3 GetMouseWorldPosition()
     {
-        Vector3 worldPositionVector3 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
-        Vector2 worldPosition = new Vector2(worldPositionVector3.x, worldPositionVector3.y);
-
-        return worldPosition;
+        Vector2 screenPos = inputActions.Player.MousePosition.ReadValue<Vector2>();
+        Vector3 worldPos = mainCam.ScreenToWorldPoint(screenPos);
+        return worldPos;
     }
     
 }

@@ -7,8 +7,8 @@ public class EnemyBase : MonoBehaviour
     protected Transform playerTransform;
     protected const string PLAYER = "Player";
 
+    [Header("Projectile Attributes")]
     [SerializeField] protected GameObject projectilePrefab;
-
     [SerializeField] protected float projectileSpeed = 5f;
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float fireRate = 2f;
