@@ -253,6 +253,26 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3578234634426178727, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578234634426178727, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5876899
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578234634426178727, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6320754
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578234634426178727, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_Color.r
+      value: 0.20572266
+      objectReference: {fileID: 0}
+    - target: {fileID: 3578234634426178727, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4395023694994367758, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
       propertyPath: gameInput
       value: 
@@ -265,6 +285,18 @@ PrefabInstance:
       propertyPath: currentWeapon
       value: 
       objectReference: {fileID: 8952281904163070879, guid: 51f7ff7ff82df1577b59b87193ffe454, type: 3}
+    - target: {fileID: 6297340150033939747, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297340150033939747, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297340150033939747, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6297340150033939747, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.66
@@ -304,6 +336,10 @@ PrefabInstance:
     - target: {fileID: 6297340150033939747, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297340150033939747, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8981867479915470199, guid: 9008e62918454c6c182be43fcf550e90, type: 3}
       propertyPath: m_Name

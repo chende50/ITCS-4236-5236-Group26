@@ -15,6 +15,8 @@ MonoBehaviour:
   weaponName: Basic Gun
   weaponDesc: A basic gun to test functionality
   weaponPrefab: {fileID: 8952281904163070879, guid: 51f7ff7ff82df1577b59b87193ffe454, type: 3}
+  bulletPrefab: {fileID: 6866555703173412744, guid: bdc3a1d5b9c51e04c814ba3967b7fce1, type: 3}
   damage: 1
   fireRate: 0
-  projectileSpeed: 5
+  projectileSpeed: 10
+  range: 10
