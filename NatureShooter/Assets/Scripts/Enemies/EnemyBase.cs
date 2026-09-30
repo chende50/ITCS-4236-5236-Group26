@@ -13,6 +13,9 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected float range = 5f;
     [SerializeField] protected float fireRate = 2f;
 
+    [Header("Movement Attributes")]
+    [SerializeField] protected float moveSpeed = 2f;
+
     protected virtual void Start()
     {
         player = GameObject.FindWithTag(PLAYER);
