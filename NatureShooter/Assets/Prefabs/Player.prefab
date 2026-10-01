@@ -170,4 +170,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   gameInput: {fileID: 0}
   gunHoldPosition: {fileID: 7665480076204610181}
+  startWeapon: {fileID: 0}
   playerSpeed: 5
+  playerHealth: 100

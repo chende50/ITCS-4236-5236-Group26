@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
 
     [Header("Player Statistics")]
     [SerializeField] private float playerSpeed;
+    [SerializeField] public float playerHealth;
 
     private Camera mainCam;
     private GameObject currWeapon;
