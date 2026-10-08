@@ -92,6 +92,6 @@ public class BullyEnemy : EnemyBase
             Debug.Log("attack timer coroutine started");
             attackTimerCoroutine = StartCoroutine(AttackTimeTEMP());
         }
-       
+        RotateEnemy();
     }
 }
