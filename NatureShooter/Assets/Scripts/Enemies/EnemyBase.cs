@@ -54,16 +54,38 @@ public class EnemyBase : MonoBehaviour
         Destroy(projectile, 5f); // Destroy the projectile after 5 seconds to prevent clutter
     }
 
-    protected void runKinematicArrive(Vector2 distToTarget)
+    protected void RotateEnemy()
     {
+        Vector2 dirToTarget = GetDirToTarget();
+        transform.up = dirToTarget;
+    }
+
+    protected void MoveEnemy()
+    {
+        Vector3 dirToTarget3 = GetDirToTargetVector3();
+
+        transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
+    }
+
+    protected void runKinematicArrive()
+    {
+        RotateEnemy();
+        MoveEnemy();
+    }
+
+    protected Vector2 GetDirToTarget()
+    {
+        Vector2 distToTarget = player.transform.position - transform.position;
         //Normalize vector to only use direction
         Vector2 dirToTarget = distToTarget.normalized;
+    }
+
+    protected Vector3 GetDirToTargetVector3()
+    {
+        Vector2 dirToTarget = GetDirToTarget();
 
         transform.up = dirToTarget;
 
         Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
-
-        //Move to target with speed
-        transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
     }
 }
