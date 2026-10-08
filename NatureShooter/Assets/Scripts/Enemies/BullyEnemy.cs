@@ -51,20 +51,7 @@ public class BullyEnemy : EnemyBase
                 break;
         }
 
-    }
-
-    private void runKinematicArrive(Vector2 distToTarget)
-    {
-        //Normalize vector to only use direction
-        Vector2 dirToTarget = distToTarget.normalized;
-
-        transform.up = dirToTarget;
-
-        Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
-
-        //Move to target with speed
-        transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
-    }        
+    }       
 
     private void IdlingBehavior()
     {

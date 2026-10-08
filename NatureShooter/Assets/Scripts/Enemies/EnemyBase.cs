@@ -54,4 +54,16 @@ public class EnemyBase : MonoBehaviour
         Destroy(projectile, 5f); // Destroy the projectile after 5 seconds to prevent clutter
     }
 
+    protected void runKinematicArrive(Vector2 distToTarget)
+    {
+        //Normalize vector to only use direction
+        Vector2 dirToTarget = distToTarget.normalized;
+
+        transform.up = dirToTarget;
+
+        Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
+
+        //Move to target with speed
+        transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
+    }
 }

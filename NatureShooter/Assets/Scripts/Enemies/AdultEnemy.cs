@@ -13,29 +13,29 @@ public class AdultEnemy : BullyEnemy
 
     protected override void Update()
     {
-        if (fireCountdown <= 0f)
-        {
-            if (toTarget.magnitude < range)
-            {
-                currentState = States.Melee;
-            }
-            else
-            {
-                currentState = States.Range;
-            }
-        }
+        //if (fireCountdown <= 0f)
+        //{
+        //    if (toTarget.magnitude < range)
+        //    {
+        //        currentState = States.Melee;
+        //    }
+        //    else
+        //    {
+        //        currentState = States.Range;
+        //    }
+        //}
 
-        if (fireCountdown > 0f)
-        {
-            // Decrease the countdown timer
-            fireCountdown -= Time.deltaTime;
-        }
+        //if (fireCountdown > 0f)
+        //{
+        // Decrease the countdown timer
+        //fireCountdown -= Time.deltaTime;
+        //}
 
         switch (currentState)
         {
             case States.Pursuit:
-                toTarget = player.transform.position - transform.position;
-                runKinematicArrive(toTarget);
+                //toTarget = player.transform.position - transform.position;
+                //runKinematicArrive(toTarget);
 
                 break;
 
@@ -47,7 +47,7 @@ public class AdultEnemy : BullyEnemy
         }
     }
 
-    protected override void attack(float damage)
+    protected void attack(float damage)
     {
         
         switch (currentState)
@@ -59,7 +59,7 @@ public class AdultEnemy : BullyEnemy
                 break;
         }
         
-        fireCountdown = fireRate;
+        //fireCountdown = fireRate;
 
         return;
     }
