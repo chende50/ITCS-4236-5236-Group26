@@ -34,8 +34,7 @@ public class AdultEnemy : BullyEnemy
         switch (currentState)
         {
             case States.Pursuit:
-                //toTarget = player.transform.position - transform.position;
-                //runKinematicArrive(toTarget);
+                //runKinematicArrive();
 
                 break;
 

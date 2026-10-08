@@ -56,29 +56,36 @@ public class EnemyBase : MonoBehaviour
 
     protected void RotateEnemy()
     {
-        Vector2 distToTarget = player.transform.position - transform.position;
-        //Normalize vector to only use direction
-        Vector2 dirToTarget = distToTarget.normalized;
-
+        Vector2 dirToTarget = GetDirToTarget();
         transform.up = dirToTarget;
     }
 
     protected void MoveEnemy()
     {
-        Vector2 distToTarget = player.transform.position - transform.position;
-        //Normalize vector to only use direction
-        Vector2 dirToTarget = distToTarget.normalized;
-
-        transform.up = dirToTarget;
-
-        Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
+        Vector3 dirToTarget3 = GetDirToTargetVector3();
 
         transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
     }
 
-    protected void runKinematicArrive(Vector2 distToTarget)
+    protected void runKinematicArrive()
     {
         RotateEnemy();
         MoveEnemy();
+    }
+
+    protected Vector2 GetDirToTarget()
+    {
+        Vector2 distToTarget = player.transform.position - transform.position;
+        //Normalize vector to only use direction
+        Vector2 dirToTarget = distToTarget.normalized;
+    }
+
+    protected Vector3 GetDirToTargetVector3()
+    {
+        Vector2 dirToTarget = GetDirToTarget();
+
+        transform.up = dirToTarget;
+
+        Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
     }
 }

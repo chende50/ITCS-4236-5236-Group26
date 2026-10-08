@@ -65,7 +65,7 @@ public class BullyEnemy : EnemyBase
         //Points from this bully to the player
         Vector2 distToTarget = player.transform.position - transform.position;
         
-        runKinematicArrive(distToTarget);
+        runKinematicArrive();
 
         // Chasing -> Attacking
         if(distToTarget.magnitude <= range)

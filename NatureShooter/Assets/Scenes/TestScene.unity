@@ -579,6 +579,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+      propertyPath: range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+      propertyPath: health
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+      propertyPath: attackDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+      propertyPath: projectileSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 6866555703173412744, guid: bdc3a1d5b9c51e04c814ba3967b7fce1, type: 3}
     - target: {fileID: 700622945819362826, guid: 9134573817efa25468408fc3db94acc8, type: 3}
       propertyPath: m_Name
       value: BullyEnemy
