@@ -78,6 +78,7 @@ public class EnemyBase : MonoBehaviour
         Vector2 distToTarget = player.transform.position - transform.position;
         //Normalize vector to only use direction
         Vector2 dirToTarget = distToTarget.normalized;
+        return dirToTarget;
     }
 
     protected Vector3 GetDirToTargetVector3()
@@ -87,5 +88,6 @@ public class EnemyBase : MonoBehaviour
         transform.up = dirToTarget;
 
         Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
+        return dirToTarget3;
     }
 }
