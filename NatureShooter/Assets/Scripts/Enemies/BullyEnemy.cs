@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 // TODO:
 // separate rotation and movement
@@ -7,91 +7,90 @@ using System.Collections;
 
 public class BullyEnemy : EnemyBase
 {
-    //range of area around the bully that determines if the target has been reached
-    [SerializeField] protected float radiusOfSatisfaction = 1f;
-    [SerializeField] protected float attackStrength = 10f;
-    [SerializeField] protected float attackDuration;
+	//range of area around the bully that determines if the target has been reached
+	[SerializeField] protected float radiusOfSatisfaction = 1f;
+	[SerializeField] protected float attackDuration;
 
-    private enum States
-    {
-        Idling,
-        Chasing,
-        Attacking
-    }
+	private enum States
+	{
+		Idling,
+		Chasing,
+		Attacking
+	}
 
-    private States state;
-    private States prevState;
+	private States state;
+	private States prevState;
 
-    private void SetState(States newState)
-    {
-        prevState = state;
-        state = newState;
-        Debug.Log(state);
-    }
+	private void SetState(States newState)
+	{
+		prevState = state;
+		state = newState;
+		Debug.Log(state);
+	}
 
-    protected override void Start()
-    {
-        base.Start();
-        SetState(States.Chasing);
-    }
+	protected override void Start()
+	{
+		base.Start();
+		SetState(States.Chasing);
+	}
 
-    protected override void Update()
-    {
-        base.Update();
-        switch (state)
-        {
-            case (States.Idling):
-                IdlingBehavior();
-                break;
-            case (States.Chasing):
-                ChasingBehavior();
-                break;
-            case (States.Attacking):
-                AttackingBehavior();
-                break;
-        }
+	protected override void Update()
+	{
+		base.Update();
+		switch (state)
+		{
+			case (States.Idling):
+				IdlingBehavior();
+				break;
+			case (States.Chasing):
+				ChasingBehavior();
+				break;
+			case (States.Attacking):
+				AttackingBehavior();
+				break;
+		}
 
-    }       
+	}
 
-    private void IdlingBehavior()
-    {
-        
-    }
+	private void IdlingBehavior()
+	{
 
-    // Chasing -> Idling
-    // ✅ Chasing -> Attacking
-    private void ChasingBehavior()
-    {
-        //Points from this bully to the player
-        Vector2 distToTarget = player.transform.position - transform.position;
-        
-        runKinematicArrive();
+	}
 
-        // Chasing -> Attacking
-        if(distToTarget.magnitude <= range)
-        {
-            SetState(States.Attacking);
-        }
-    }
+	// Chasing -> Idling
+	// ✅ Chasing -> Attacking
+	private void ChasingBehavior()
+	{
+		//Points from this bully to the player
+		Vector2 distToTarget = player.transform.position - transform.position;
 
-    private IEnumerator AttackTimeTEMP()
-    {
-        yield return new WaitForSeconds(attackDuration / 2);
-        ShootAtPlayer();
-        yield return new WaitForSeconds(attackDuration / 2);
-        SetState(States.Chasing);
-        StopCoroutine(attackTimerCoroutine);
-        attackTimerCoroutine = null;
-    }
+		runKinematicArrive();
 
-    private Coroutine attackTimerCoroutine;
-    private void AttackingBehavior()
-    {
-        if (attackTimerCoroutine == null)
-        {
-            Debug.Log("attack timer coroutine started");
-            attackTimerCoroutine = StartCoroutine(AttackTimeTEMP());
-        }
-        RotateEnemy();
-    }
+		// Chasing -> Attacking
+		if (distToTarget.magnitude <= range)
+		{
+			SetState(States.Attacking);
+		}
+	}
+
+	private IEnumerator AttackTimeTEMP()
+	{
+		yield return new WaitForSeconds(attackDuration / 2);
+		ShootAtPlayer();
+		yield return new WaitForSeconds(attackDuration / 2);
+		SetState(States.Chasing);
+		StopCoroutine(attackTimerCoroutine);
+		attackTimerCoroutine = null;
+	}
+
+	private Coroutine attackTimerCoroutine;
+	private void AttackingBehavior()
+	{
+		if (attackTimerCoroutine == null)
+		{
+			Debug.Log("attack timer coroutine started");
+			attackTimerCoroutine = StartCoroutine(AttackTimeTEMP());
+		}
+		RotateEnemy();
+	}
 }

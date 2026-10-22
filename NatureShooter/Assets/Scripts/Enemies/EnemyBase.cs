@@ -2,92 +2,92 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    
-    protected GameObject player;
-    protected Transform playerTransform;
-    protected const string PLAYER = "Player";
 
-    [Header("Basic Attributes")]
-    [SerializeField] protected int score;
-    [SerializeField] protected float health;
+	protected GameObject player;
+	protected Transform playerTransform;
+	protected const string PLAYER = "Player";
 
-    [Header("Projectile Attributes")]
-    [SerializeField] protected GameObject projectilePrefab;
-    [SerializeField] protected float projectileSpeed = 5f;
-    [SerializeField] protected float range = 5f;
-    [SerializeField] protected float fireRate = 2f;
+	[Header("Basic Attributes")]
+	[SerializeField] protected int score;
+	[SerializeField] protected float health;
 
-    [Header("Movement Attributes")]
-    [SerializeField] protected float moveSpeed = 2f;
+	[Header("Projectile Attributes")]
+	[SerializeField] protected GameObject projectilePrefab;
+	[SerializeField] protected float projectileSpeed = 5f;
+	[SerializeField] protected float range = 5f;
+	[SerializeField] protected float fireRate = 2f;
+	[SerializeField] protected float damage = 1f;
 
-    protected virtual void Start()
-    {
-        player = GameObject.FindWithTag(PLAYER);
-        
-        if(player != null)
-        {
-            playerTransform = player.transform;
-        }
-    }
+	[Header("Movement Attributes")]
+	[SerializeField] protected float moveSpeed = 2f;
 
-    protected virtual void Update()
-    {
-        
-    }
+	protected virtual void Start()
+	{
+		player = GameObject.FindWithTag(PLAYER);
 
-    protected virtual void ShootAtPlayer()
-    {
-        if (projectilePrefab == null || playerTransform == null) return;
+		if (player != null)
+		{
+			playerTransform = player.transform;
+		}
+	}
 
-        Vector2 direction = (playerTransform.position - transform.position).normalized;
+	protected virtual void Update()
+	{
 
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+	}
 
-        // Set projectile's gravity and velocity
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        if (rb != null)
-        {
-            rb.gravityScale = 0f;
-            rb.linearVelocity = direction * projectileSpeed;
-        }
+	public virtual void TakeDamage(float damage)
+	{
+		health -= damage;
+	}
 
-        Destroy(projectile, 5f); // Destroy the projectile after 5 seconds to prevent clutter
-    }
+	protected virtual void ShootAtPlayer()
+	{
+		if (projectilePrefab == null || playerTransform == null) return;
 
-    protected void RotateEnemy()
-    {
-        Vector2 dirToTarget = GetDirToTarget();
-        transform.up = dirToTarget;
-    }
+		Vector2 direction = (playerTransform.position - transform.position).normalized;
 
-    protected void MoveEnemy()
-    {
-        Vector3 dirToTarget3 = GetDirToTargetVector3();
+		GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
-        transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
-    }
+		BasicBullet projectileScript = projectile.AddComponent<BasicBullet>();
+		projectileScript.Constructor(direction, projectileSpeed, range, damage);
 
-    protected void runKinematicArrive()
-    {
-        RotateEnemy();
-        MoveEnemy();
-    }
+	}
 
-    protected Vector2 GetDirToTarget()
-    {
-        Vector2 distToTarget = player.transform.position - transform.position;
-        //Normalize vector to only use direction
-        Vector2 dirToTarget = distToTarget.normalized;
-        return dirToTarget;
-    }
+	protected void RotateEnemy()
+	{
+		Vector2 dirToTarget = GetDirToTarget();
+		transform.up = dirToTarget;
+	}
 
-    protected Vector3 GetDirToTargetVector3()
-    {
-        Vector2 dirToTarget = GetDirToTarget();
+	protected void MoveEnemy()
+	{
+		Vector3 dirToTarget3 = GetDirToTargetVector3();
 
-        transform.up = dirToTarget;
+		transform.position += dirToTarget3 * moveSpeed * Time.deltaTime;
+	}
 
-        Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
-        return dirToTarget3;
-    }
+	protected void runKinematicArrive()
+	{
+		RotateEnemy();
+		MoveEnemy();
+	}
+
+	protected Vector2 GetDirToTarget()
+	{
+		Vector2 distToTarget = player.transform.position - transform.position;
+		//Normalize vector to only use direction
+		Vector2 dirToTarget = distToTarget.normalized;
+		return dirToTarget;
+	}
+
+	protected Vector3 GetDirToTargetVector3()
+	{
+		Vector2 dirToTarget = GetDirToTarget();
+
+		transform.up = dirToTarget;
+
+		Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
+		return dirToTarget3;
+	}
 }

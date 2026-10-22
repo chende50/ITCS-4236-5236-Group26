@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class BasicGun : MonoBehaviour
 {
-    
-    [SerializeField] private WeaponSO weaponSO;
-    [SerializeField] private Transform bulletPoint;
 
-    public WeaponSO GetWeaponSO()
-    {
-        return weaponSO;
-    }
+	[SerializeField] private WeaponSO weaponSO;
+	[SerializeField] private Transform bulletPoint;
 
-    public Transform GetBulletPoint()
-    {
-        return bulletPoint;
-    }
+	public WeaponSO GetWeaponSO()
+	{
+		return weaponSO;
+	}
+
+	public Transform GetBulletPoint()
+	{
+		return bulletPoint;
+	}
 
 }

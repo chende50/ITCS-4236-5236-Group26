@@ -3,75 +3,74 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    [Header("References")]
-    [SerializeField] private GameInput gameInput;
-    [SerializeField] private Transform gunHoldPosition;
-    [SerializeField] private GameObject startWeapon;
+	[Header("References")]
+	[SerializeField] private GameInput gameInput;
+	[SerializeField] private Transform gunHoldPosition;
+	[SerializeField] private GameObject startWeapon;
 
-    [Header("Player Statistics")]
-    [SerializeField] private float playerSpeed;
-    [SerializeField] public float playerHealth;
+	[Header("Player Statistics")]
+	[SerializeField] private float playerSpeed;
+	[SerializeField] public float playerHealth;
 
-    private Camera mainCam;
-    private GameObject currWeapon;
+	private Camera mainCam;
+	private GameObject currWeapon;
 
-    private void Start()
-    {
-        currWeapon = Instantiate(startWeapon, gunHoldPosition);
-        mainCam = Camera.main;
-        gameInput.OnShootAction += GameInput_OnShootAction;
-    }
+	private void Start()
+	{
+		currWeapon = Instantiate(startWeapon, gunHoldPosition);
+		mainCam = Camera.main;
+		gameInput.OnShootAction += GameInput_OnShootAction;
+	}
 
-    private void GameInput_OnShootAction(object sender, System.EventArgs e)
-    {
-        Shoot();
-    }
+	private void GameInput_OnShootAction(object sender, System.EventArgs e)
+	{
+		Shoot();
+	}
 
-    private void Update()
-    {
-        //Vector2 mouseWorldPosition = gameInput.GetMouseWorldPosition();
+	private void Update()
+	{
+		//Vector2 mouseWorldPosition = gameInput.GetMouseWorldPosition();
 
-        HandleMovement();
-        HandleRotation();
-    }
+		HandleMovement();
+		HandleRotation();
+	}
 
-    private void HandleMovement()
-    {
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+	private void HandleMovement()
+	{
+		Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
-        Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0);
+		Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0);
 
-        transform.position += moveDir * Time.deltaTime * playerSpeed;
-    }
+		transform.position += moveDir * Time.deltaTime * playerSpeed;
+	}
 
-    private void HandleRotation()
-    {
-        Vector3 mousePosition = gameInput.GetMouseWorldPosition();
-        Vector2 mouseDirectionNormalized = (mousePosition - transform.position).normalized;
-        transform.up = mouseDirectionNormalized;
-    }
+	private void HandleRotation()
+	{
+		Vector3 mousePosition = gameInput.GetMouseWorldPosition();
+		Vector2 mouseDirectionNormalized = (mousePosition - transform.position).normalized;
+		transform.up = mouseDirectionNormalized;
+	}
 
-    private void Shoot()
-    {
-        BasicGun basicGunScript = currWeapon.GetComponent<BasicGun>();
-        if (basicGunScript == null) { Debug.Log("No weapon script"); return; }
-        GameObject bulletPrefab = basicGunScript.GetWeaponSO().GetBulletPrefab();
-        if (bulletPrefab == null) { Debug.Log("No bullet"); return; }
-        WeaponSO weaponSO = basicGunScript.GetWeaponSO();
+	private void Shoot()
+	{
+		BasicGun basicGunScript = currWeapon.GetComponent<BasicGun>();
+		if (basicGunScript == null) { Debug.Log("No weapon script"); return; }
+		GameObject bulletPrefab = basicGunScript.GetWeaponSO().GetBulletPrefab();
+		if (bulletPrefab == null) { Debug.Log("No bullet"); return; }
+		WeaponSO weaponSO = basicGunScript.GetWeaponSO();
 
-        Vector3 mousePosition = gameInput.GetMouseWorldPosition();
-        Vector2 mouseDirectionNormalized = (mousePosition - transform.position).normalized;
+		Vector3 mousePosition = gameInput.GetMouseWorldPosition();
+		Vector2 mouseDirectionNormalized = (mousePosition - transform.position).normalized;
 
-        GameObject projectile = Instantiate(bulletPrefab, basicGunScript.GetBulletPoint().position, basicGunScript.GetBulletPoint().rotation);
-        Vector3 initialPosition = projectile.transform.position;
+		GameObject projectile = Instantiate(bulletPrefab, basicGunScript.GetBulletPoint().position, basicGunScript.GetBulletPoint().rotation);
 
-        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        if (rb == null) { Debug.Log("bullet has no rigidbody"); return; }
-        rb.gravityScale = 0;
-        rb.linearVelocity = mouseDirectionNormalized * weaponSO.GetProjectileSpeed();
+		BasicBullet projectileScript = projectile.AddComponent<BasicBullet>();
+		projectileScript.Constructor(mouseDirectionNormalized, weaponSO.GetProjectileSpeed(), weaponSO.GetRange(), weaponSO.GetDamage());
 
-        float bulletLifeTime = weaponSO.GetRange() / weaponSO.GetProjectileSpeed();
-        Destroy(projectile, bulletLifeTime);
+	}
 
-    }
+	public void TakeDamage(float damage)
+	{
+		playerHealth -= damage;
+	}
 }
