@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5576315, y: 0.5317216, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5722554797111988656}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2747690628134850419, guid: a9716c16a44a94eed9b5c90fbf4d9bdd, type: 3}
-  m_Color: {r: 0.27492988, g: 0.6320754, b: 0.21168566, a: 1}
+  m_Color: {r: 0.6313726, g: 0.21176468, b: 0.5159678, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9ddd8ef1b32a5144b8ab56c8feec4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlowerEnemy
+  score: 0
+  health: 0
   projectilePrefab: {fileID: 2136885919931168639, guid: 00872c3b6faaa5344a1e7becd4d4e7b6, type: 3}
+  projectileSpeed: 5
   range: 5
   fireRate: 2
-  projectileSpeed: 5
+  moveSpeed: 2
