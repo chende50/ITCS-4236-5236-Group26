@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +16,9 @@ public class Player : MonoBehaviour
 
 	private Camera mainCam;
 	private GameObject currWeapon;
+
+	private int score;
+	private int targetScore;
 
 	private void Start()
 	{
@@ -72,5 +77,41 @@ public class Player : MonoBehaviour
 	public void TakeDamage(float damage)
 	{
 		playerHealth -= damage;
+	}
+
+	public void AddScore(int amount)
+	{
+		float duration = 2f;
+		targetScore += amount;
+		if (scoreAnimationRoutine != null)
+		{
+			StopCoroutine(scoreAnimationRoutine);
+		}
+		scoreAnimationRoutine = StartCoroutine(ScoreAnimationRoutine(amount, duration));
+	}
+
+	private Coroutine scoreAnimationRoutine;
+	[SerializeField] private AnimationCurve scoreAnimationCurve;
+	private IEnumerator ScoreAnimationRoutine(int amount, float animationTime)
+	{
+		float elapsed = 0f;
+		float duration = animationTime;
+		int startScore = score;
+		int endScore = targetScore;
+		while (elapsed < duration)
+		{
+			elapsed += Time.deltaTime;
+			float t = Mathf.Clamp01(elapsed / duration);
+			float curveT = scoreAnimationCurve.Evaluate(t);
+			score = Mathf.RoundToInt(Mathf.Lerp(startScore, endScore, curveT));
+			yield return null;
+		}
+		score = endScore;
+		scoreAnimationRoutine = null;
+	}
+
+	public int GetScore()
+	{
+		return score;
 	}
 }

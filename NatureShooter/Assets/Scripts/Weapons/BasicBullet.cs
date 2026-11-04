@@ -7,8 +7,18 @@ public class BasicBullet : MonoBehaviour
 	private float projectileSpeed;
 	private float range;
 	private float damage;
+	private EnemyBase parent;
 
 	private Vector3 startPosition;
+
+	public void Constructor(Vector3 direction, float projectileSpeed, float range, float damage, EnemyBase parent)
+	{
+		this.direction = direction;
+		this.projectileSpeed = projectileSpeed;
+		this.range = range;
+		this.damage = damage;
+		this.parent = parent;
+	}
 
 	public void Constructor(Vector3 direction, float projectileSpeed, float range, float damage)
 	{
@@ -43,7 +53,7 @@ public class BasicBullet : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log("bullet trigger entered");
+		//Debug.Log("bullet trigger entered");
 		EnemyBase enemy = other.GetComponentInParent<EnemyBase>();
 		Player player = other.GetComponentInParent<Player>();
 		if (enemy != null)
@@ -54,6 +64,7 @@ public class BasicBullet : MonoBehaviour
 		else if (player != null)
 		{
 			player.TakeDamage(damage);
+			parent.HitPlayer();
 			Destroy(gameObject);
 		}
 

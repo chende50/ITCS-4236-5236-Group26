@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
 
-	protected GameObject player;
+	protected Player player;
 	protected Transform playerTransform;
 	protected const string PLAYER = "Player";
 
@@ -21,9 +21,11 @@ public class EnemyBase : MonoBehaviour
 	[Header("Movement Attributes")]
 	[SerializeField] protected float moveSpeed = 2f;
 
+	private int hitTracker = 0;
+
 	protected virtual void Start()
 	{
-		player = GameObject.FindWithTag(PLAYER);
+		player = GameObject.FindWithTag(PLAYER).GetComponent<Player>();
 
 		if (player != null)
 		{
@@ -31,9 +33,26 @@ public class EnemyBase : MonoBehaviour
 		}
 	}
 
+	protected virtual void Death()
+	{
+		int oldScore = score;
+		score = score - hitTracker;
+		Debug.Log(score);
+		player.AddScore(score);
+		Destroy(this.gameObject);
+	}
+
+	public void HitPlayer()
+	{
+		hitTracker++;
+	}
+
 	protected virtual void Update()
 	{
-
+		if (health <= 0)
+		{
+			Death();
+		}
 	}
 
 	public virtual void TakeDamage(float damage)
@@ -50,7 +69,7 @@ public class EnemyBase : MonoBehaviour
 		GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
 
 		BasicBullet projectileScript = projectile.AddComponent<BasicBullet>();
-		projectileScript.Constructor(direction, projectileSpeed, range, damage);
+		projectileScript.Constructor(direction, projectileSpeed, range, damage, this);
 
 	}
 

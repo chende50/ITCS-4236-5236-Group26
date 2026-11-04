@@ -9,6 +9,7 @@ public class FlowerEnemy : EnemyBase
     // Update is called once per frame
     protected override void Update()
     {
+        base.Update();
         if (playerTransform == null) return;
 
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
