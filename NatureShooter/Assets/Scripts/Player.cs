@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -22,11 +23,15 @@ public class Player : MonoBehaviour
 	public float scoreMult = 1.0f;
 	[SerializeField] float comboTimer = 3f;
 
+	private float startTime;
+	private float currentTime;
+
 	private void Start()
 	{
 		currWeapon = Instantiate(startWeapon, gunHoldPosition);
 		mainCam = Camera.main;
 		gameInput.OnShootAction += GameInput_OnShootAction;
+		startTime = Time.unscaledTime;
 	}
 
 	private void GameInput_OnShootAction(object sender, System.EventArgs e)
@@ -125,5 +130,15 @@ public class Player : MonoBehaviour
 	public float GetScore()
 	{
 		return score;
+	}
+
+	private void UpdateTimer()
+	{
+		currentTime = Time.unscaledTime - startTime;
+	}
+
+	public float GetTime()
+	{
+		return currentTime;
 	}
 }
