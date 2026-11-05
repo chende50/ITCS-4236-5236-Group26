@@ -17,8 +17,10 @@ public class Player : MonoBehaviour
 	private Camera mainCam;
 	private GameObject currWeapon;
 
-	private int score;
-	private int targetScore;
+	private float score;
+	private float targetScore;
+	public float scoreMult = 1.0f;
+	[SerializeField] float comboTimer = 3f;
 
 	private void Start()
 	{
@@ -79,14 +81,24 @@ public class Player : MonoBehaviour
 		playerHealth -= damage;
 	}
 
+	private IEnumerator ComboRoutine(float duration)
+	{
+		yield return new WaitForSeconds(duration);
+		scoreMult = 1.0f;
+	}
+
+	private Coroutine comboRoutine;
 	public void AddScore(int amount)
 	{
+		if (comboRoutine != null) { StopCoroutine(comboRoutine); }
 		float duration = 2f;
-		targetScore += amount;
+		scoreMult += .1f;
+		targetScore += amount * scoreMult;
 		if (scoreAnimationRoutine != null)
 		{
 			StopCoroutine(scoreAnimationRoutine);
 		}
+		comboRoutine = StartCoroutine(ComboRoutine(comboTimer));
 		scoreAnimationRoutine = StartCoroutine(ScoreAnimationRoutine(amount, duration));
 	}
 
@@ -96,8 +108,8 @@ public class Player : MonoBehaviour
 	{
 		float elapsed = 0f;
 		float duration = animationTime;
-		int startScore = score;
-		int endScore = targetScore;
+		float startScore = score;
+		float endScore = targetScore;
 		while (elapsed < duration)
 		{
 			elapsed += Time.deltaTime;
@@ -110,7 +122,7 @@ public class Player : MonoBehaviour
 		scoreAnimationRoutine = null;
 	}
 
-	public int GetScore()
+	public float GetScore()
 	{
 		return score;
 	}
