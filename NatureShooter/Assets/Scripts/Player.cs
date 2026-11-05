@@ -10,8 +10,9 @@ public class Player : MonoBehaviour
 	[SerializeField] private GameInput gameInput;
 	[SerializeField] private Transform gunHoldPosition;
 	[SerializeField] private GameObject startWeapon;
+	[SerializeField] private HealthUI HealthUI;
 
-	[Header("Player Statistics")]
+    [Header("Player Statistics")]
 	[SerializeField] private float playerSpeed;
 	[SerializeField] public float playerHealth;
 
@@ -32,7 +33,8 @@ public class Player : MonoBehaviour
 		mainCam = Camera.main;
 		gameInput.OnShootAction += GameInput_OnShootAction;
 		startTime = Time.unscaledTime;
-	}
+        HealthUI.SetMaxHealth(100f);
+    }
 
 	private void GameInput_OnShootAction(object sender, System.EventArgs e)
 	{
@@ -84,7 +86,10 @@ public class Player : MonoBehaviour
 	public void TakeDamage(float damage)
 	{
 		playerHealth -= damage;
-	}
+
+		playerHealth = Mathf.Clamp(playerHealth, 0f, 100f);
+        HealthUI.SetHealth(playerHealth);
+    }
 
 	private IEnumerator ComboRoutine(float duration)
 	{
