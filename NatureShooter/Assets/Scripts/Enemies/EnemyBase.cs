@@ -10,6 +10,7 @@ public class EnemyBase : MonoBehaviour
 	[Header("Basic Attributes")]
 	[SerializeField] protected int score;
 	[SerializeField] protected float health;
+	[SerializeField] protected float cost;
 
 	[Header("Projectile Attributes")]
 	[SerializeField] protected GameObject projectilePrefab;
@@ -108,5 +109,10 @@ public class EnemyBase : MonoBehaviour
 
 		Vector3 dirToTarget3 = new Vector3(dirToTarget.x, dirToTarget.y, 0);
 		return dirToTarget3;
+	}
+
+	public float GetCost()
+	{
+		return cost;
 	}
 }

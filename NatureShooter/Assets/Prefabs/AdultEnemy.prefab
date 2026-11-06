@@ -118,8 +118,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.91131, y: 6.06894, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.16}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 854013488151961275}
   m_Father: {fileID: 0}
@@ -136,12 +136,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89696cbc844e4154684dce63a00332d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdultEnemy
-  score: 0
-  health: 0
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 0
+  score: 450
+  health: 10
+  cost: 1
+  projectilePrefab: {fileID: 6866555703173412744, guid: f5ec0bebbf317f042a426c9d8ee3b316, type: 3}
+  projectileSpeed: 5
   range: 3
   fireRate: 2
+  damage: 1
   moveSpeed: 2
   radiusOfSatisfaction: 1
-  attackStrength: 10
+  attackDuration: 1

@@ -256,6 +256,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlowerEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5115253402991037204, guid: 36d5a9f4aa6e31d41ae11ffaa082571c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5722554797111988656, guid: 36d5a9f4aa6e31d41ae11ffaa082571c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.16
@@ -358,7 +362,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 507477696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68787,6 +68791,60 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257399414}
   m_CullTransparentMesh: 1
+--- !u!1 &1274408574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1274408576}
+  - component: {fileID: 1274408575}
+  m_Layer: 0
+  m_Name: EnemySpawnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1274408575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274408574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccad0e435bf51014da573df7577736f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnManager
+  enemiesToSpawn:
+  - {fileID: 7293760529982228664, guid: d3445f078d624d84985011613630ca1c, type: 3}
+  - {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+  - {fileID: 8069462806650314859, guid: 36d5a9f4aa6e31d41ae11ffaa082571c, type: 3}
+  affordableEnemies: []
+  budget: 10
+  randomizeSpawnTimerBetween: {x: 5, y: 8}
+  enemySpawnCountRange: {x: 1, y: 3}
+  spawnDistanceFromPlayerRange: {x: 5, y: 10}
+  currentTime: 0
+--- !u!4 &1274408576
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274408574}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1320986468
 GameObject:
   m_ObjectHideFlags: 0
@@ -69585,7 +69643,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.91
+  orthographic size: 2.02
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -69866,6 +69924,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AdultEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5215248406325054276, guid: d3445f078d624d84985011613630ca1c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7293760529982228664, guid: d3445f078d624d84985011613630ca1c, type: 3}
       propertyPath: range
       value: 0
@@ -70084,6 +70146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BullyEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 700622945819362826, guid: 9134573817efa25468408fc3db94acc8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2796497750905814414, guid: 9134573817efa25468408fc3db94acc8, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.16
@@ -70159,3 +70225,4 @@ SceneRoots:
   - {fileID: 9154118119571614500}
   - {fileID: 78167061}
   - {fileID: 2003893101}
+  - {fileID: 1274408576}
