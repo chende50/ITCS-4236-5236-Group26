@@ -78186,7 +78186,7 @@ MonoBehaviour:
   budget: 3
   randomizeSpawnTimerBetween: {x: 7, y: 12}
   enemySpawnCountRange: {x: 1, y: 3}
-  spawnDistanceFromPlayerRange: {x: 10, y: 15}
+  spawnDistanceFromPlayerRange: {x: 12, y: 18}
   currentTime: 0
 --- !u!4 &996687808
 Transform:

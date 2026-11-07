@@ -51,12 +51,12 @@ MonoBehaviour:
   cost: 1
   projectilePrefab: {fileID: 6866555703173412744, guid: 2146babe6dea91346baaebfb2e58ff2f, type: 3}
   projectileSpeed: 20
-  range: 10
-  fireRate: 4
+  range: 12
+  fireRate: 1.5
   damage: 10
   moveSpeed: 5
   radiusOfSatisfaction: 6
-  attackDuration: 2
+  attackDuration: 0.5
 --- !u!50 &6345111171694431056
 Rigidbody2D:
   serializedVersion: 5

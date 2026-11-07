@@ -63,6 +63,7 @@ public class EnemyBase : MonoBehaviour
 
 	protected virtual void ShootAtPlayer()
 	{
+		if ((playerTransform.position - transform.position).magnitude > range) { return; }
 		if (projectilePrefab == null || playerTransform == null) return;
 
 		Vector2 direction = (playerTransform.position - transform.position).normalized;
