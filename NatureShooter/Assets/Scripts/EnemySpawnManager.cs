@@ -7,6 +7,7 @@ public class EnemySpawnManager : MonoBehaviour
 	[SerializeField] private List<EnemyBase> affordableEnemies = new List<EnemyBase>();
 
 	[SerializeField] private float budget;
+	private float baseBudget;
 	private float budgetMultiplier;
 	private float lastBudget;
 	private float budgetScalar = .2f;
@@ -39,10 +40,13 @@ public class EnemySpawnManager : MonoBehaviour
 
 	private void Start()
 	{
-		waitTime = GetRandomWaitTime();
-		nextSpawnAt = currentTime + waitTime;
 		player = GameObject.FindWithTag(PLAYER).GetComponent<Player>();
-		FindAffordableEnemies();
+		baseBudget = budget;
+		waitTime = GetRandomWaitTime();
+		nextSpawnAt = 0f;
+		currMinute = 0;
+		budgetMultiplier = 1;
+		SpawnWave();
 	}
 
 	private void Update()
@@ -50,7 +54,6 @@ public class EnemySpawnManager : MonoBehaviour
 		currentTime += Time.deltaTime;
 		currMinute = Mathf.FloorToInt(currentTime / 60);
 		budgetMultiplier = 1 + (Mathf.FloorToInt((float)currMinute / (float)minutesTillBudgetMultiplierIncrease) * budgetScalar);
-
 		SpawnWave();
 		//Debug.Log(currentTime);
 	}
@@ -64,14 +67,17 @@ public class EnemySpawnManager : MonoBehaviour
 		waitTime = GetRandomWaitTime();
 		nextSpawnAt = currentTime + waitTime;
 		lastBudget = budget;
+
+		FindAffordableEnemies();
+
 		while (affordableEnemies.Count > 0)
 		{
 			Debug.Log("affordables enemies > 0");
-			FindAffordableEnemies();
 			if (affordableEnemies.Count == 0) break;
 			int randomEnemyIndex = Random.Range(0, affordableEnemies.Count);
 			EnemyBase enemyToSpawn = affordableEnemies[randomEnemyIndex];
-			int enemySpawnCount = (int)Random.Range(enemySpawnCountRange.x, enemySpawnCountRange.y);
+			int enemySpawnCount = Mathf.RoundToInt(Random.Range(enemySpawnCountRange.x, enemySpawnCountRange.y));
+			if (enemySpawnCount == 0) { Debug.Log("Do not have 0 as the minimum"); enemySpawnCount = 1; }
 			while (enemyToSpawn.GetCost() * enemySpawnCount > budget)
 			{
 				enemySpawnCount--;
@@ -94,9 +100,11 @@ public class EnemySpawnManager : MonoBehaviour
 				RemoveFromBudget(enemy.GetCost());
 				Debug.Log(enemy);
 			}
+			FindAffordableEnemies();
 		}
-		float newBudget = (lastBudget + (currentTime - timeSinceLastWave)) * budgetMultiplier;
+		float newBudget = (lastBudget + 4) * budgetMultiplier;
 		SetBudget(newBudget);
+		randomizeSpawnTimerBetween = new Vector2(randomizeSpawnTimerBetween.x + 2, randomizeSpawnTimerBetween.y + 2);
 	}
 
 	public void SpawnEnemy(EnemyBase enemy)
@@ -139,6 +147,11 @@ public class EnemySpawnManager : MonoBehaviour
 	public float GetBudget()
 	{
 		return budget;
+	}
+
+	public float GetNextSpawnAt()
+	{
+		return nextSpawnAt;
 	}
 
 }

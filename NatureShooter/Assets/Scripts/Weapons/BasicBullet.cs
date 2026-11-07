@@ -36,7 +36,7 @@ public class BasicBullet : MonoBehaviour
 		if (rb != null)
 		{
 			rb.gravityScale = 0f;
-			rb.linearVelocity = direction * projectileSpeed;
+			rb.linearVelocity = direction.normalized * projectileSpeed;
 		}
 
 	}

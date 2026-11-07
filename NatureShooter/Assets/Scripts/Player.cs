@@ -1,7 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class Player : MonoBehaviour
 {
@@ -11,9 +9,11 @@ public class Player : MonoBehaviour
 	[SerializeField] private Transform gunHoldPosition;
 	[SerializeField] private GameObject startWeapon;
 	[SerializeField] private HealthUI HealthUI;
+	private Rigidbody2D rb;
 
-    [Header("Player Statistics")]
-	[SerializeField] private float playerSpeed;
+	[Header("Player Statistics")]
+	[SerializeField] private float acceleration;
+	[SerializeField] private float targetSpeed;
 	[SerializeField] public float playerHealth;
 
 	private Camera mainCam;
@@ -26,36 +26,43 @@ public class Player : MonoBehaviour
 
 	private float startTime;
 	private float currentTime;
+	private Vector2 inputVector;
 
 	private void Start()
 	{
+		rb = GetComponent<Rigidbody2D>();
 		currWeapon = Instantiate(startWeapon, gunHoldPosition);
 		mainCam = Camera.main;
 		gameInput.OnShootAction += GameInput_OnShootAction;
 		startTime = Time.unscaledTime;
-        HealthUI.SetMaxHealth(100f);
-    }
+		HealthUI.SetMaxHealth(100f);
+	}
 
 	private void GameInput_OnShootAction(object sender, System.EventArgs e)
 	{
 		Shoot();
+		//currentTime = 0f;
 	}
 
 	private void Update()
 	{
 		//Vector2 mouseWorldPosition = gameInput.GetMouseWorldPosition();
+		inputVector = gameInput.GetMovementVectorNormalized();
+		UpdateTimer();
 
+	}
+
+	private void FixedUpdate()
+	{
 		HandleMovement();
 		HandleRotation();
 	}
 
 	private void HandleMovement()
 	{
-		Vector2 inputVector = gameInput.GetMovementVectorNormalized();
+		Vector2 targetVelocity = inputVector * targetSpeed;
 
-		Vector3 moveDir = new Vector3(inputVector.x, inputVector.y, 0);
-
-		transform.position += moveDir * Time.deltaTime * playerSpeed;
+		rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
 	}
 
 	private void HandleRotation()
@@ -88,8 +95,8 @@ public class Player : MonoBehaviour
 		playerHealth -= damage;
 
 		playerHealth = Mathf.Clamp(playerHealth, 0f, 100f);
-        HealthUI.SetHealth(playerHealth);
-    }
+		HealthUI.SetHealth(playerHealth);
+	}
 
 	private IEnumerator ComboRoutine(float duration)
 	{
@@ -139,7 +146,7 @@ public class Player : MonoBehaviour
 
 	private void UpdateTimer()
 	{
-		currentTime = Time.unscaledTime - startTime;
+		currentTime = Time.timeSinceLevelLoad;
 	}
 
 	public float GetTime()

@@ -196,7 +196,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1484393973620740092}
@@ -218,5 +218,14 @@ MonoBehaviour:
   gameInput: {fileID: 0}
   gunHoldPosition: {fileID: 7665480076204610181}
   startWeapon: {fileID: 0}
+  HealthUI: {fileID: 0}
   playerSpeed: 5
   playerHealth: 100
+  scoreMult: 1
+  comboTimer: 3
+  scoreAnimationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
