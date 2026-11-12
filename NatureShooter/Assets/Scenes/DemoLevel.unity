@@ -78179,9 +78179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawnManager
   enemiesToSpawn:
-  - {fileID: -1192979377583582537, guid: 8247df3b4dbe1fc4bbd48e028252c5e2, type: 3}
   - {fileID: -1192979377583582537, guid: 9134573817efa25468408fc3db94acc8, type: 3}
-  - {fileID: 8069462806650314859, guid: 36d5a9f4aa6e31d41ae11ffaa082571c, type: 3}
   affordableEnemies: []
   budget: 3
   randomizeSpawnTimerBetween: {x: 7, y: 12}
